@@ -43,7 +43,7 @@ namespace :import do
     counter = 0
 
     CSV.foreach(filename, headers: true) do |row|
-      invoice = Item.create(id: row['id'], customer_id: row['customer_id'], merchant_id: row['merchant_id'], status: row['status'], created_at: row['created_at'], updated_at: row['updated_at'])
+      invoice = Invoice.create(id: row['id'], customer_id: row['customer_id'], merchant_id: row['merchant_id'], status: row['status'], created_at: row['created_at'], updated_at: row['updated_at'])
       counter += 1 if invoice.persisted?
     end
 

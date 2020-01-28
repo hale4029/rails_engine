@@ -3,7 +3,8 @@ require 'CSV'
 namespace :import do
 
   task customers: :environment do
-    filename = File.join Rails.root, "customers.csv"
+    #require "pry"; binding.pry
+    filename = '/Users/hlevin/turing/mod_3/rails_engine_project/rails_engine_api/data/customers.csv'
     counter = 0
 
     CSV.foreach(filename, headers: true) do |row|

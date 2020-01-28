@@ -19,8 +19,8 @@ namespace :import do
     counter = 0
 
     CSV.foreach(filename, headers: true) do |row|
-      merchant = Customer.create(id: row['id'], name: row['name'], created_at: row['created_at'], updated_at: row['updated_at'])
-      counter += 1 if merchants.persisted?
+      merchant = Merchant.create(id: row['id'], name: row['name'], created_at: row['created_at'], updated_at: row['updated_at'])
+      counter += 1 if merchant.persisted?
     end
 
     puts "Imported #{counter} merchants."
@@ -31,8 +31,8 @@ namespace :import do
     counter = 0
 
     CSV.foreach(filename, headers: true) do |row|
-      item = Customer.create(id: row['id'], name: row['name'], description: row['description'], unit_price: row['unit_price'], merchant_id: row['merchant_id'], created_at: row['created_at'], updated_at: row['updated_at'])
-      counter += 1 if items.persisted?
+      item = Item.create(id: row['id'], name: row['name'], description: row['description'], unit_price: row['unit_price'], merchant_id: row['merchant_id'], created_at: row['created_at'], updated_at: row['updated_at'])
+      counter += 1 if item.persisted?
     end
 
     puts "Imported #{counter} items."

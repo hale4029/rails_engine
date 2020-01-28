@@ -31,11 +31,23 @@ namespace :import do
     counter = 0
 
     CSV.foreach(filename, headers: true) do |row|
-      item = Item.create(id: row['id'], name: row['name'], description: row['description'], unit_price: row['unit_price'], merchant_id: row['merchant_id'], created_at: row['created_at'], updated_at: row['updated_at'])
+      item = Item.create(id: row['id'], name: row['name'], merchant_id: row['description'], unit_price: row['unit_price'], merchant_id: row['merchant_id'], created_at: row['created_at'], updated_at: row['updated_at'])
       counter += 1 if item.persisted?
     end
 
     puts "Imported #{counter} items."
+  end
+
+  task invoices: :environment do
+    filename = '/Users/hlevin/turing/mod_3/rails_engine_project/rails_engine_api/data/invoices.csv'
+    counter = 0
+
+    CSV.foreach(filename, headers: true) do |row|
+      invoice = Item.create(id: row['id'], customer_id: row['customer_id'], merchant_id: row['merchant_id'], status: row['status'], created_at: row['created_at'], updated_at: row['updated_at'])
+      counter += 1 if invoice.persisted?
+    end
+
+    puts "Imported #{counter} invoices."
   end
 
 end

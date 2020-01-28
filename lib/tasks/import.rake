@@ -75,3 +75,11 @@ namespace :import do
   end
 
 end
+
+##JOMAH
+# task customer_csv: :environment do
+#   customers = CSV.foreach("./data/customers.csv", headers: true, header_converters: :symbol)
+#   customers.each do |row_data|
+#     Customer.create(row_data.to_hash)
+#   end
+# end

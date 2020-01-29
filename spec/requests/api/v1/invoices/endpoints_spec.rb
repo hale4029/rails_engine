@@ -25,3 +25,26 @@ describe "invoices/:id/items" do
     expect(item['attributes'].keys).to_not include('updated_at')
    end
 end
+
+describe "invoices/:id/transactions" do
+  it "sends a list transaction for that invoice id" do
+    invoice = create(:invoice)
+    create_list(:transaction, 6, invoice: invoice)
+
+    get "/api/v1/invoices/#{invoice.id}/transactions"
+
+    expect(response).to be_successful
+
+    transactions = JSON.parse(response.body)['data']
+    expect(transactions.count).to eq(6)
+
+    transaction = transactions.first
+    expect(transaction['attributes'].keys).to include('id')
+    expect(transaction['attributes'].keys).to include('invoice_id')
+    expect(transaction['attributes'].keys).to include('credit_card_number')
+    expect(transaction['attributes'].keys).to_not include('credit_card_expiration_date')
+    expect(transaction['attributes'].keys).to include('result')
+    expect(transaction['attributes'].keys).to_not include('created_at')
+    expect(transaction['attributes'].keys).to_not include('updated_at')
+   end
+end

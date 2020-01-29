@@ -7,4 +7,12 @@ class InvoiceItem < ApplicationRecord
                         :invoice_id,
                         :quantity,
                         :unit_price
+
+  def self.find_resource(params)
+    if params.keys.include?('invoice_id')
+      Invoice.find(params['invoice_id'])
+    else
+      "Query param error"
+    end
+  end
 end

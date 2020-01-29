@@ -1,7 +1,8 @@
 class Api::V1::InvoiceItemsController < ApplicationController
 
   def index
-    render json: InvoiceItemSerializer.new(InvoiceItem.all)
+    resource = InvoiceItem.find_resource(params)
+    render json: InvoiceItemSerializer.new(resource.transactions)
   end
 
 end

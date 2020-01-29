@@ -6,26 +6,26 @@ class Merchant < ApplicationRecord
 
 
   def self.find_merchant(params)
-    if params[:id] == "find"
+    if params[:slug] == "find"
       self.find_query(params)
-    elsif params[:id] == "find_all"
+    elsif params[:slug] == "find_all"
       self.find_all_query(params)
-    elsif params[:id] == "random"
+    elsif params[:slug] == "random"
       offset = rand(self.count)
       self.offset(offset).limit(1).first
       self.all.sample
-    elsif params[:id] == "revenue"
+    elsif params[:slug] == "revenue"
       self.revenue(params)
     else
-      self.find(params['id'])
+      self.find(params['slug'])
     end
   end
 
   def self.find_query(params)
     if params.keys.include?('name')
       self.where(name: params['name']).first
-    elsif params.keys.include?('merchant_id')
-      self.find(params['merchant_id'])
+    elsif params.keys.include?('id')
+      self.find(params['id'])
     elsif params.keys.include?('created_at')
       self.where(created_at: Time.zone.parse(params['created_at']).all_day).first
     elsif params.keys.include?('updated_at')
@@ -38,8 +38,8 @@ class Merchant < ApplicationRecord
   def self.find_all_query(params)
     if params.keys.include?('name')
       self.where(name: params['name'])
-    elsif params.keys.include?('merchant_id')
-      self.where(id: params['merchant_id'])
+    elsif params.keys.include?('id')
+      self.where(id: params['id'])
     elsif params.keys.include?('created_at')
       self.where(created_at: Time.zone.parse(params['created_at']).all_day)
     elsif params.keys.include?('updated_at')

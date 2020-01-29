@@ -9,8 +9,8 @@ class Item < ApplicationRecord
                         :merchant_id
 
   def self.find_resource(params)
-    if params.keys.include?('merchant_id')
-      Merchant.find(params['merchant_id'])
+    if params.keys.include?('merchant_slug')
+      Merchant.find(params['merchant_slug'])
     elsif params.keys.include?('invoice_id')
       Invoice.find(params['invoice_id'])
     elsif params.keys.include?('invoice_item_id')

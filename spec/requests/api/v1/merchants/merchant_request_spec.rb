@@ -30,7 +30,7 @@ describe "Mechant API" do
   it "merchant find request: ID" do
     merchant = create(:merchant)
 
-    get "/api/v1/merchants/find?merchant_id=#{merchant.id}"
+    get "/api/v1/merchants/find?id=#{merchant.id}"
 
     expect(response).to be_successful
 
@@ -90,7 +90,7 @@ describe "Mechant API" do
    it "merchant find_all request: ID" do
      merchant = create(:merchant)
 
-     get "/api/v1/merchants/find_all?merchant_id=#{merchant.id}"
+     get "/api/v1/merchants/find_all?id=#{merchant.id}"
 
      expect(response).to be_successful
 

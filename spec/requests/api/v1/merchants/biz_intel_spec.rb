@@ -19,14 +19,22 @@ describe "biz intelligence" do
   end
 
   it "revenue across all merchants" do
-    total_revenue = ((@invoice_item_1.quantity * @invoice_item_1.unit_price) +
+    total_revenue_1 = ((@invoice_item_1.quantity * @invoice_item_1.unit_price) +
                     (@invoice_item_2.quantity * @invoice_item_2.unit_price))
+    total_revenue_2 = ((@invoice_item_3.quantity * @invoice_item_3.unit_price) +
+                    (@invoice_item_4.quantity * @invoice_item_4.unit_price))
 
     get "/api/v1/merchants/revenue?date=#{@created_at_1}"       #{Time.now.strftime('%m/%d/%Y')}"
 
     expect(response).to be_successful
     result = JSON.parse(response.body).to_int
-    expect(result).to eq(total_revenue)
+    expect(result).to eq(total_revenue_1)
+
+    get "/api/v1/merchants/revenue?date=#{@created_at_2}"       #{Time.now.strftime('%m/%d/%Y')}"
+
+    expect(response).to be_successful
+    result = JSON.parse(response.body).to_int
+    expect(result).to eq(total_revenue_2)
   end
 
   it "highest grossing merchant by revenue" do

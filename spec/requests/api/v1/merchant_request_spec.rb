@@ -175,7 +175,7 @@ describe "Mechant API" do
 
     expect(response).to be_successful
     merchant = JSON.parse(response.body)['data']
-    
+
     expect(merchant['attributes']['id']).to_not eq(id)
   end
 

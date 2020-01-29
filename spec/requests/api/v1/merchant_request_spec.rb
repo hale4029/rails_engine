@@ -155,4 +155,28 @@ describe "Mechant API" do
      expect(merchant.class).to eq(Array)
      expect(merchant.length).to eq(2)
     end
+
+  it "random mechant" do
+    create_list(:merchant, 100)
+
+    get "/api/v1/merchants/random"
+
+    expect(response).to be_successful
+    merchant = JSON.parse(response.body)['data']
+
+    id = merchant['attributes']['id']
+
+    expect(merchant['attributes'].keys).to include('id')
+    expect(merchant['attributes'].keys).to include('name')
+    expect(merchant['attributes'].keys).to_not include('created_at')
+    expect(merchant['attributes'].keys).to_not include('updated_at')
+
+    get "/api/v1/merchants/random"
+
+    expect(response).to be_successful
+    merchant = JSON.parse(response.body)['data']
+    require "pry"; binding.pry
+    expect(merchant['attributes']['id']).to_not eq(id)
+  end
+
  end

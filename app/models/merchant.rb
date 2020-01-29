@@ -6,6 +6,10 @@ class Merchant < ApplicationRecord
       self.find_query(params)
     elsif params[:id] == "find_all"
       self.find_all_query(params)
+    elsif params[:id] == "random"
+      offset = rand(Merchant.count)
+      Merchant.offset(offset).limit(1).first
+      self.all.sample
     else
       self.find(params['id'])
     end

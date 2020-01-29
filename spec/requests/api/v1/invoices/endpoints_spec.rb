@@ -1,16 +1,19 @@
 require 'rails_helper'
 
-describe "mechant/:id/items" do
-  it "sends a list items for that mechant id" do
-    merchant = create(:merchant)
-    create_list(:item, 5, merchant: merchant)
+describe "invoices/:id/items" do
+  it "sends a list items for that invoice id" do
+    invoice = create(:invoice)
+    7.times do
+      item = create(:item)
+      create(:invoice_item, invoice: invoice, item: item, unit_price: item.unit_price)
+    end
 
-    get "/api/v1/merchants/#{merchant.id}/items"
+    get "/api/v1/invoices/#{invoice.id}/items"
 
     expect(response).to be_successful
 
     items = JSON.parse(response.body)['data']
-    expect(items.count).to eq(5)
+    expect(items.count).to eq(7)
 
     item = items.first
     expect(item['attributes'].keys).to include('id')

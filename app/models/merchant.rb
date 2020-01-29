@@ -22,28 +22,40 @@ class Merchant < ApplicationRecord
   end
 
   def self.find_query(params)
-    if params.keys.include?('name')
-      self.where(name: params['name']).first
-    elsif params.keys.include?('id')
-      self.find(params['id'])
-    elsif params.keys.include?('created_at')
-      self.where(created_at: Time.zone.parse(params['created_at']).all_day).first
-    elsif params.keys.include?('updated_at')
-      self.where(updated_at: Time.zone.parse(params['updated_at']).all_day).first
+    params.delete('slug')
+    param = params.keys.first
+    if (params.keys & ['name', 'id']).any?
+      # self.where(name: params['name']).first
+      self.where(param => params[param])[0]
+    # elsif params.keys.include?('id')
+    #   self.find(params['id'])
+    elsif (params.keys & ['created_at', 'updated_at']).any?
+      #self.where(created_at: Time.zone.parse(params['created_at']).all_day).order('created_at desc').first
+      #self.where(created_at: params['created_at']).order('created_at desc').first
+      self.where(param => params[param]).order("#{param} desc").first
+  #  elsif params.keys.include?('updated_at')
+      #self.where(updated_at: Time.zone.parse(params['updated_at']).all_day).order('updated_at desc').first
+      #self.where(updated_at: params['updated_at']).order('updated_at desc').first
     else
       "Query param error"
     end
   end
 
   def self.find_all_query(params)
-    if params.keys.include?('name')
-      self.where(name: params['name'])
-    elsif params.keys.include?('id')
-      self.where(id: params['id'])
-    elsif params.keys.include?('created_at')
-      self.where(created_at: Time.zone.parse(params['created_at']).all_day)
-    elsif params.keys.include?('updated_at')
-      self.where(updated_at: Time.zone.parse(params['updated_at']).all_day)
+    params.delete('slug')
+    param = params.keys.first
+    if (params.keys & ['name', 'id']).any?
+      self.where(param => params[param])
+      #self.where(name: params['name'])
+    # elsif params.keys.include?('id')
+    #   self.where(id: params['id'])
+    elsif (params.keys & ['created_at', 'updated_at']).any?
+      self.where(param => params[param]).order("#{param} desc")
+      #self.where(created_at: Time.zone.parse(params['created_at']).all_day).order('created_at desc')
+    #   self.where(created_at: params['created_at']).order('created_at desc')
+    # elsif params.keys.include?('updated_at')
+    #   #self.where(updated_at: Time.zone.parse(params['updated_at']).all_day).order('updated_at desc')
+    #   self.where(updated_at: params['updated_at']).order('updated_at desc')
     else
       "Query param error"
     end

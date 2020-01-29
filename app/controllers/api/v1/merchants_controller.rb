@@ -8,8 +8,15 @@ class Api::V1::MerchantsController < ApplicationController
     if params.values.include?('revenue')
       render json: Merchant.find_merchant(params)
     else
-      render json: MerchantSerializer.new(Merchant.find_merchant(params))
+      render json: MerchantSerializer.new(Merchant.find_merchant(pass_params))
     end
+  end
+
+
+  private
+
+  def pass_params
+    params.permit(:id, :name, :created_at, :updated_at, :slug, :date)
   end
 
 end

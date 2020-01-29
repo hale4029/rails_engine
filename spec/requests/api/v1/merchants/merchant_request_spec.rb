@@ -58,7 +58,7 @@ describe "Mechant API" do
    end
 
   it "merchant find request: CREATED AT" do
-    merchant = create(:merchant)
+    merchant = create(:merchant, created_at: '2012-03-28T14:54:05.000Z')
 
     get "/api/v1/merchants/find?created_at=#{merchant.created_at.to_s}"
 
@@ -73,7 +73,7 @@ describe "Mechant API" do
    end
 
   it "merchant find request: UPDATED AT" do
-    merchant = create(:merchant)
+    merchant = create(:merchant, updated_at: '2012-03-28T14:54:05.000Z')
 
     get "/api/v1/merchants/find?updated_at=#{merchant.updated_at.to_s}"
 
@@ -127,11 +127,11 @@ describe "Mechant API" do
     end
 
    it "merchant find_all request: CREATED AT" do
-     merchant = create(:merchant, created_at: (Time.now - 5.days))
-     create(:merchant, created_at: (Time.now - 5.days))
-     create(:merchant, created_at: (Time.now - 6.days))
+     merchant = create(:merchant, created_at: '2012-03-28T14:54:05.000Z')
+     create(:merchant, created_at: '2012-03-28T14:54:05.000Z')
+     create(:merchant, created_at: '2012-03-29T14:54:05.000Z')
 
-     get "/api/v1/merchants/find_all?created_at=#{merchant.created_at.to_s}"
+     get "/api/v1/merchants/find_all?created_at='2012-03-28T14:54:05.000Z'"
 
      expect(response).to be_successful
 
@@ -142,11 +142,11 @@ describe "Mechant API" do
     end
 
    it "merchant find_all request: UPDATED AT" do
-     merchant = create(:merchant, updated_at: (Time.now - 5.days))
-     create(:merchant, updated_at: (Time.now - 5.days))
-     create(:merchant, updated_at: (Time.now - 6.days))
+     merchant = create(:merchant, updated_at: '2012-03-28T14:54:05.000Z')
+     create(:merchant, updated_at: '2012-03-28T14:54:05.000Z')
+     create(:merchant, updated_at: '2012-03-29T14:54:05.000Z')
 
-     get "/api/v1/merchants/find_all?updated_at=#{merchant.updated_at.to_s}"
+     get "/api/v1/merchants/find_all?updated_at='2012-03-28T14:54:05.000Z'"
 
      expect(response).to be_successful
 

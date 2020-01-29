@@ -14,6 +14,8 @@ class Merchant < ApplicationRecord
       offset = rand(self.count)
       self.offset(offset).limit(1).first
       self.all.sample
+    elsif params[:id] == "revenue"
+      self.revenue(params)
     else
       self.find(params['id'])
     end
@@ -45,6 +47,13 @@ class Merchant < ApplicationRecord
     else
       "Query param error"
     end
+  end
+
+  def self.revenue(params)
+    date = Time.zone.parse(params['date'])
+    require "pry"; binding.pry
+    result = InvoiceItem.select('sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').where(created_at: date.all_day)
+    result.first.total_revenue
   end
 
 end

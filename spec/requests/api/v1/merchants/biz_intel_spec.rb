@@ -6,9 +6,8 @@ describe "biz intelligence" do
     merchant_2 = create(:merchant)
     item_1 = create(:item, merchant: merchant_1)
     item_2 = create(:item, merchant: merchant_2)
-    require "pry"; binding.pry
-    @created_at_1 = Date.strptime('01-01-2020', '%m/%d/%Y')
-    @created_at_2 = Date.strptime('01-19-2020', '%m/%d/%Y')
+    @created_at_1 = Date.strptime('01-01-2020', '%m-%d-%Y')
+    @created_at_2 = Date.strptime('01-19-2020', '%m-%d-%Y')
     invoice_1 = create(:invoice, merchant: merchant_1, created_at: @created_at_1)
     invoice_2 = create(:invoice, merchant: merchant_2, created_at: @created_at_1)
     invoice_3 = create(:invoice, merchant: merchant_1, created_at: @created_at_2)
@@ -26,8 +25,7 @@ describe "biz intelligence" do
     get "/api/v1/merchants/revenue?date=#{@created_at_1}"       #{Time.now.strftime('%m/%d/%Y')}"
 
     expect(response).to be_successful
-    require "pry"; binding.pry
-    result = JSON.parse(response.body)['data']
+    result = JSON.parse(response.body).to_int
     expect(result).to eq(total_revenue)
   end
 

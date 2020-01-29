@@ -51,8 +51,7 @@ class Merchant < ApplicationRecord
 
   def self.revenue(params)
     date = Time.zone.parse(params['date'])
-    require "pry"; binding.pry
-    result = InvoiceItem.select('sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').where(created_at: date.all_day)
+    result = InvoiceItem.select('sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').where(created_at: date.all_day).order('total_revenue')
     result.first.total_revenue
   end
 

@@ -5,7 +5,11 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def show
-    render json: MerchantSerializer.new(Merchant.find_merchant(params))
+    if params.values.include?('revenue')
+      render json: Merchant.find_merchant(params)
+    else
+      render json: MerchantSerializer.new(Merchant.find_merchant(params))
+    end
   end
 
 end

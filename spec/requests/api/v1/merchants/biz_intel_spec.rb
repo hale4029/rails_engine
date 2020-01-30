@@ -23,21 +23,21 @@ describe "biz intelligence" do
   it "revenue across all merchants" do
     date_one = "2012-03-16"
     date_two = "2012-03-07"
-    total_revenue_1 = ((@invoice_item_1.quantity * @invoice_item_1.unit_price) +
-                    (@invoice_item_2.quantity * @invoice_item_2.unit_price))
-    total_revenue_2 = ((@invoice_item_3.quantity * @invoice_item_3.unit_price) +
-                    (@invoice_item_4.quantity * @invoice_item_4.unit_price))
+    total_revenue_1 = (((@invoice_item_1.quantity * @invoice_item_1.unit_price) +
+                    (@invoice_item_2.quantity * @invoice_item_2.unit_price)).to_f / 100)
+    total_revenue_2 = (((@invoice_item_3.quantity * @invoice_item_3.unit_price) +
+                    (@invoice_item_4.quantity * @invoice_item_4.unit_price)).to_f / 100)
 
     get "/api/v1/merchants/revenue?date=#{date_one}"       #{Time.now.strftime('%m/%d/%Y')}"
 
     expect(response).to be_successful
-    result = JSON.parse(response.body).to_int
+    result = JSON.parse(response.body)['data']['total_revenue']
     expect(result).to eq(total_revenue_1)
 
     get "/api/v1/merchants/revenue?date=#{date_two}"       #{Time.now.strftime('%m/%d/%Y')}"
 
     expect(response).to be_successful
-    result = JSON.parse(response.body).to_int
+    result = JSON.parse(response.body)['data']['total_revenue']
     expect(result).to eq(total_revenue_2)
   end
 

@@ -7,8 +7,6 @@ Rails.application.routes.draw do
         resources :invoices, only: [:index]
       end
 
-      # get 'merchants/', param: :slug, to: 'merchants#show'
-      # get 'merchants/find_all', to: 'merchants#show'
       get 'merchants/random', to: 'merchants#show'
       get 'merchants/revenue', to: 'merchants#show'
       get 'merchants/most_revenue', to: 'merchants#show'

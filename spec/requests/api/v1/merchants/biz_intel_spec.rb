@@ -24,20 +24,20 @@ describe "biz intelligence" do
     date_one = "2012-03-16"
     date_two = "2012-03-07"
     total_revenue_1 = (((@invoice_item_1.quantity * @invoice_item_1.unit_price) +
-                    (@invoice_item_2.quantity * @invoice_item_2.unit_price)).to_f / 100)
+                    (@invoice_item_2.quantity * @invoice_item_2.unit_price)).to_f / 100).to_s
     total_revenue_2 = (((@invoice_item_3.quantity * @invoice_item_3.unit_price) +
-                    (@invoice_item_4.quantity * @invoice_item_4.unit_price)).to_f / 100)
+                    (@invoice_item_4.quantity * @invoice_item_4.unit_price)).to_f / 100).to_s
 
     get "/api/v1/merchants/revenue?date=#{date_one}"       #{Time.now.strftime('%m/%d/%Y')}"
 
     expect(response).to be_successful
-    result = JSON.parse(response.body)['data']['total_revenue']
+    result = JSON.parse(response.body)['data']['attributes']['total_revenue']
     expect(result).to eq(total_revenue_1)
 
     get "/api/v1/merchants/revenue?date=#{date_two}"       #{Time.now.strftime('%m/%d/%Y')}"
 
     expect(response).to be_successful
-    result = JSON.parse(response.body)['data']['total_revenue']
+    result = JSON.parse(response.body)['data']['attributes']['total_revenue']
     expect(result).to eq(total_revenue_2)
   end
 

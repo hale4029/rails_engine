@@ -1,8 +1,17 @@
-class Api::V1::CostomersController < ApplicationController
+class Api::V1::CustomersController < ApplicationController
 
   def index
-    render json: CostomerSerializer.new(Costomer.all)
+    render json: CustomerSerializer.new(Customer.all)
   end
 
+  def show
+    render json: CustomerSerializer.new(Customer.find_customer(pass_params))
+  end
+
+  private
+
+  def pass_params
+    params.permit(:id, :first_name, :created_at, :updated_at, :slug, :date, :last_name)
+  end
 
 end

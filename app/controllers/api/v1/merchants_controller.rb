@@ -12,6 +12,10 @@ class Api::V1::MerchantsController < ApplicationController
     end
   end
 
+  # def service
+  #   resource = Merchant.find_resource(params)
+  #   render json: MerchantSerializer.new(resource.items)
+  # end
 
   private
 

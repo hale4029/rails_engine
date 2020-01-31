@@ -8,10 +8,11 @@ class Api::V1::ItemsController < ApplicationController
     render json: ItemSerializer.new(Item.find_item(pass_params))
   end
 
-  # def index
-  #   resource = Item.find_resource(params)
-  #   render json: ItemSerializer.new(resource.items)
-  # end
+  def service
+    require "pry"; binding.pry
+    resource = Item.find_resource(params)
+    render json: ItemSerializer.new(resource.items)
+  end
 
   private
 

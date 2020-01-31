@@ -10,11 +10,7 @@ class Api::V1::TransactionsController < ApplicationController
 
   def service
     resource = ResourceFinder.find_resource(params)
-    if resource.class == Customer
-      render json: TransactionSerializer.new(resource.customer_transactions)
-    else
-      render json: TransactionSerializer.new(resource.transactions)
-    end
+    render json: TransactionSerializer.new(resource.transactions)
   end
 
   private

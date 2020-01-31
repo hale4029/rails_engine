@@ -10,7 +10,7 @@ class Api::V1::InvoicesController < ApplicationController
 
   def service
     resource = ResourceFinder.find_resource(params)
-    if resource.class == InvoiceItem
+    if resource.class == InvoiceItem || resource.class == Transaction
       render json: InvoiceSerializer.new(resource.invoice)
     else
       render json: InvoiceSerializer.new(resource.invoices)

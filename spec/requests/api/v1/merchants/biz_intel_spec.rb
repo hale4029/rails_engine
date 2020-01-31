@@ -20,7 +20,7 @@ describe "biz intelligence" do
     @invoice_item_4 = create(:invoice_item, item: item_2, invoice: invoice_4, unit_price: item_2.unit_price, created_at: @created_at_2)
   end
 
-  it "revenue across all merchants" do
+  it "revenue across all merchants on a specific date" do
     date_one = "2012-03-16"
     date_two = "2012-03-07"
     total_revenue_1 = (((@invoice_item_1.quantity * @invoice_item_1.unit_price) +

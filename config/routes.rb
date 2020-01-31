@@ -26,11 +26,11 @@ Rails.application.routes.draw do
 
       resources :items, param: :slug, only: [:index, :show] do
         resources :invoice_items, only: [:index], action: 'service'
-        resources :merchant, only: [:index], action: 'service'
+        resources :merchant, only: [:index], controller: 'merchants', action: 'service'
       end
 
       resources :transactions, param: :slug, only: [:index, :show] do
-        resources :invoice, only: [:index], action: 'service'
+        resources :invoice, only: [:index], controller: 'invoices', action: 'service'
       end
 
       resources :customers, param: :slug, only: [:index, :show] do

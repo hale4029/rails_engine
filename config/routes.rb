@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :merchants, param: :slug, only: [:index, :show] do
-        resources :items, :name_prefix => 'service'
-        resources :invoices, :name_prefix => 'service'
+        resources :items, only: [:index], action: 'service'
+        resources :invoices, only: [:index], action: 'service'
       end
 
       get 'merchants/random', to: 'merchants#show'

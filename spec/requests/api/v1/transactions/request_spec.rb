@@ -46,27 +46,11 @@ describe "transaction API" do
     expect(transaction['attributes'].keys).to_not include('updated_at')
    end
 
-  it "transaction find request: customer_id" do
-    transaction = create(:transaction)
+  it "transaction find request: invoice_id" do
+    invoice = create(:invoice)
+    transaction = create(:transaction, invoice_id: invoice.id)
 
-    get "/api/v1/transactions/find?customer_id=#{transaction.customer_id}"
-
-    expect(response).to be_successful
-
-    transaction = JSON.parse(response.body)['data']
-
-    expect(transaction['attributes'].keys).to include('id')
-    expect(transaction['attributes'].keys).to include('invoice_id')
-    expect(transaction['attributes'].keys).to include('credit_card_number')
-    expect(transaction['attributes'].keys).to include('result')
-    expect(transaction['attributes'].keys).to_not include('created_at')
-    expect(transaction['attributes'].keys).to_not include('updated_at')
-   end
-
-  it "transaction find request: merchant_id" do
-    transaction = create(:transaction)
-
-    get "/api/v1/transactions/find?merchant_id=#{transaction.merchant_id}"
+    get "/api/v1/transactions/find?invoice_id=#{invoice.id}"
 
     expect(response).to be_successful
 
@@ -80,10 +64,10 @@ describe "transaction API" do
     expect(transaction['attributes'].keys).to_not include('updated_at')
    end
 
-  it "transaction find request: status" do
-    transaction = create(:transaction, status: 'happy')
+  it "transaction find request: credit_card_number" do
+    transaction = create(:transaction, credit_card_number: 12345)
 
-    get "/api/v1/transactions/find?status=#{transaction.status}"
+    get "/api/v1/transactions/find?credit_card_number=12345"
 
     expect(response).to be_successful
 
@@ -96,6 +80,25 @@ describe "transaction API" do
     expect(transaction['attributes'].keys).to_not include('created_at')
     expect(transaction['attributes'].keys).to_not include('updated_at')
    end
+
+  it "transaction find request: result" do
+    transaction = create(:transaction, result: 'great')
+
+    get "/api/v1/transactions/find?result=great"
+
+    expect(response).to be_successful
+
+    transaction = JSON.parse(response.body)['data']
+
+    expect(transaction['attributes'].keys).to include('id')
+    expect(transaction['attributes'].keys).to include('invoice_id')
+    expect(transaction['attributes'].keys).to include('credit_card_number')
+    expect(transaction['attributes'].keys).to include('result')
+    expect(transaction['attributes'].keys).to_not include('created_at')
+    expect(transaction['attributes'].keys).to_not include('updated_at')
+   end
+
+
 
   it "transaction find request: CREATED AT" do
     transaction = create(:transaction, created_at: '2012-03-28T14:54:05.000Z')
@@ -152,39 +155,14 @@ describe "transaction API" do
      expect(transaction['attributes'].keys).to_not include('updated_at')
     end
 
-   it "transaction find_all request: merchant_id" do
-     merchant = create(:merchant)
-     merchant_1 = create(:merchant)
-     transaction = create(:transaction, merchant_id: merchant.id)
-     create(:transaction, merchant_id: merchant.id)
-     create(:transaction, merchant_id: merchant_1.id)
+   it "transaction find_all request: invoice_id" do
+     invoice = create(:invoice)
+     invoice_1 = create(:invoice)
+     transaction = create(:transaction, invoice_id: invoice.id)
+     create(:transaction, invoice_id: invoice.id)
+     create(:transaction, invoice_id: invoice_1.id)
 
-     get "/api/v1/transactions/find_all?merchant_id=#{merchant.id}"
-
-     expect(response).to be_successful
-
-     transaction = JSON.parse(response.body)['data']
-
-     expect(transaction.class).to eq(Array)
-     expect(transaction.length).to eq(2)
-
-     transaction = transaction.first
-     expect(transaction['attributes'].keys).to include('id')
-     expect(transaction['attributes'].keys).to include('invoice_id')
-     expect(transaction['attributes'].keys).to include('credit_card_number')
-     expect(transaction['attributes'].keys).to include('result')
-     expect(transaction['attributes'].keys).to_not include('created_at')
-     expect(transaction['attributes'].keys).to_not include('updated_at')
-    end
-
-   it "transaction find_all request: customer_id" do
-     customer = create(:customer)
-     customer_1 = create(:customer)
-     transaction = create(:transaction, customer_id: customer.id)
-     create(:transaction, customer_id: customer.id)
-     create(:transaction, customer_id: customer_1.id)
-
-     get "/api/v1/transactions/find_all?customer_id=#{transaction.customer_id}"
+     get "/api/v1/transactions/find_all?invoice_id=#{invoice.id}"
 
      expect(response).to be_successful
 
@@ -202,12 +180,12 @@ describe "transaction API" do
      expect(transaction['attributes'].keys).to_not include('updated_at')
     end
 
-   it "transaction find_all request: status" do
-     transaction = create(:transaction, status: "hello")
-     create(:transaction, status: "hello")
-     create(:transaction, status: "pending")
+   it "transaction find_all request: credit_card_number" do
+     transaction = create(:transaction, credit_card_number: 12345)
+     create(:transaction, credit_card_number: 12345)
+     create(:transaction, credit_card_number: 6789)
 
-     get "/api/v1/transactions/find_all?status=#{transaction.status}"
+     get "/api/v1/transactions/find_all?credit_card_number=12345"
 
      expect(response).to be_successful
 
@@ -225,6 +203,28 @@ describe "transaction API" do
      expect(transaction['attributes'].keys).to_not include('updated_at')
     end
 
+   it "transaction find_all request: result" do
+     transaction = create(:transaction, result: 'good')
+     create(:transaction, result: 'good')
+     create(:transaction, result: 'bad')
+
+     get "/api/v1/transactions/find_all?result=good"
+
+     expect(response).to be_successful
+
+     transaction = JSON.parse(response.body)['data']
+
+     expect(transaction.class).to eq(Array)
+     expect(transaction.length).to eq(2)
+
+     transaction = transaction.first
+     expect(transaction['attributes'].keys).to include('id')
+     expect(transaction['attributes'].keys).to include('invoice_id')
+     expect(transaction['attributes'].keys).to include('credit_card_number')
+     expect(transaction['attributes'].keys).to include('result')
+     expect(transaction['attributes'].keys).to_not include('created_at')
+     expect(transaction['attributes'].keys).to_not include('updated_at')
+    end
 
    it "transaction find_all request: CREATED AT" do
      transaction = create(:transaction, created_at: '2012-03-28T14:54:05.000Z')

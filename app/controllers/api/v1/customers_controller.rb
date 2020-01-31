@@ -11,7 +11,7 @@ class Api::V1::CustomersController < ApplicationController
   private
 
   def pass_params
-    params.permit(:id, :first_name, :created_at, :updated_at, :slug, :date, :last_name)
+    params.permit(:id, :first_name, :created_at, :updated_at, :slug, :last_name)
   end
 
 end

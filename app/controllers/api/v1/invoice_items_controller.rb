@@ -8,10 +8,10 @@ class Api::V1::InvoiceItemsController < ApplicationController
     render json: InvoiceItemSerializer.new(InvoiceItem.find_invoice_item(pass_params))
   end
 
-  # def index
-  #   resource = InvoiceItem.find_resource(params)
-  #   render json: InvoiceItemSerializer.new(resource.invoice_items)
-  # end
+  def service
+    resource = ResourceFinder.find_resource(params)
+    render json: InvoiceItemSerializer.new(resource.invoice_items)
+  end
 
   private
 

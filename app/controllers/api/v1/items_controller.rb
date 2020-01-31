@@ -9,8 +9,12 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def service
-    resource = Item.find_resource(params)
-    render json: ItemSerializer.new(resource.items)
+    resource = ResourceFinder.find_resource(params)
+    if resource.class == InvoiceItem
+      render json: ItemSerializer.new(resource.item)
+    else
+      render json: ItemSerializer.new(resource.items)
+    end
   end
 
   private

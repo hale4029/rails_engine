@@ -8,10 +8,14 @@ class Api::V1::TransactionsController < ApplicationController
     render json: TransactionSerializer.new(Transaction.find_transaction(pass_params))
   end
 
-  # def index
-  #   resource = Transaction.find_resource(params)
-  #   render json: TransactionSerializer.new(resource.transactions)
-  # end
+  def service
+    resource = ResourceFinder.find_resource(params)
+    if resource.class == Customer
+      render json: TransactionSerializer.new(resource.customer_transactions)
+    else
+      render json: TransactionSerializer.new(resource.transactions)
+    end
+  end
 
   private
 

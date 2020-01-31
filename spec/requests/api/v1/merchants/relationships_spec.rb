@@ -7,7 +7,7 @@ describe "mechant/:id/invoices" do
       customer = create(:customer)
       create(:invoice, merchant: merchant, customer: customer)
     end
-
+    
     get "/api/v1/merchants/#{merchant.id}/invoices"
 
     expect(response).to be_successful

@@ -10,7 +10,7 @@ class Customer < ApplicationRecord
     elsif params[:slug] == "random"
       offset = rand(self.count)
       self.offset(offset).limit(1).first
-      self.all.sample
+      #self.all.sample
     else
       self.find(params['slug'])
     end

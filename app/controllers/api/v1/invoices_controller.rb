@@ -16,7 +16,7 @@ class Api::V1::InvoicesController < ApplicationController
   private
 
   def pass_params
-    params.permit(:id, :status, :customer_id, :created_at, :updated_at, :slug, :date, :merchant_id)
+    params.permit(:id, :status, :customer_id, :created_at, :updated_at, :slug, :merchant_id)
   end
 
 

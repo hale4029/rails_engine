@@ -9,7 +9,6 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def service
-    require "pry"; binding.pry
     resource = Item.find_resource(params)
     render json: ItemSerializer.new(resource.items)
   end

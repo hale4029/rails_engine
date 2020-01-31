@@ -8,10 +8,10 @@ class Api::V1::InvoicesController < ApplicationController
     render json: InvoiceSerializer.new(Invoice.find_invoice(pass_params))
   end
 
-  # def index
-  #   merchant = Merchant.find(params[:merchant_slug])
-  #   render json: InvoiceSerializer.new(merchant.invoices)
-  # end
+  def service
+    merchant = Merchant.find(params[:merchant_slug])
+    render json: InvoiceSerializer.new(merchant.invoices)
+  end
 
   private
 

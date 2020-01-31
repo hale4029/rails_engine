@@ -203,7 +203,7 @@ describe "Customer API" do
     end
 
   it "random mechant" do
-    create_list(:customer, 100)
+    create_list(:customer, 114)
 
     get "/api/v1/customers/random"
 

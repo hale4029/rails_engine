@@ -11,10 +11,10 @@ class Item < ApplicationRecord
   def self.find_resource(params)
     if params.keys.include?('merchant_slug')
       Merchant.find(params['merchant_slug'])
-    elsif params.keys.include?('invoice_id')
-      Invoice.find(params['invoice_id'])
-    elsif params.keys.include?('invoice_item_id')
-      InvoiceItem.find(params['invoice_item_id'])
+    elsif params.keys.include?('invoice_slug')
+      Invoice.find(params['invoice_slug'])
+    elsif params.keys.include?('invoice_item_slug')
+      InvoiceItem.find(params['invoice_item_slug'])
     else
       "Query param error"
     end

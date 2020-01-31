@@ -9,8 +9,12 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def service
-    merchant = Merchant.find(params[:merchant_slug])
-    render json: InvoiceSerializer.new(merchant.invoices)
+    resource = ResourceFinder.find_resource(params)
+    if resource.class == InvoiceItem
+      render json: InvoiceSerializer.new(resource.invoice)
+    else
+      render json: InvoiceSerializer.new(resource.invoices)
+    end
   end
 
   private

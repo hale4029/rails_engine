@@ -1,4 +1,6 @@
 class Customer < ApplicationRecord
+  has_many :invoices
+
   validates_presence_of :first_name,
                         :last_name
 
@@ -38,5 +40,9 @@ class Customer < ApplicationRecord
     else
       "Query param error"
     end
+  end
+
+  def customer_transactions
+    Transaction.joins(customers: [:invoices]).where("invoices.customer_id == #{self.id}")
   end
 end

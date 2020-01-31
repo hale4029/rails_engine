@@ -12,30 +12,30 @@ Rails.application.routes.draw do
       get 'merchants/most_revenue', to: 'merchants#show'
 
       resources :invoices, param: :slug, only: [:index, :show] do
-        resources :transactions, only: [:index]
-        resources :invoice_items, only: [:index]
-        resources :items, only: [:index]
-        resources :customer, only: [:index]
-        resources :merchant, only: [:index]
+        resources :transactions, only: [:index], action: 'service'
+        resources :invoice_items, only: [:index], action: 'service'
+        resources :items, only: [:index], action: 'service'
+        resources :customer, only: [:index], controller: 'customers', action: 'service'
+        resources :merchant, only: [:index], controller: 'merchants', action: 'service'
       end
 
       resources :invoice_items, param: :slug, only: [:index, :show] do
-        resources :invoice, only: [:index]
-        resources :items, only: [:index]
+        resources :invoice, only: [:index], controller: 'invoices', action: 'service'
+        resources :item, only: [:index], controller: 'items', action: 'service'
       end
 
       resources :items, param: :slug, only: [:index, :show] do
-        resources :invoice_items, only: [:index]
-        resources :merchant, only: [:index]
+        resources :invoice_items, only: [:index], action: 'service'
+        resources :merchant, only: [:index], action: 'service'
       end
 
       resources :transactions, param: :slug, only: [:index, :show] do
-        resources :invoice, only: [:index]
+        resources :invoice, only: [:index], action: 'service'
       end
 
       resources :customers, param: :slug, only: [:index, :show] do
-        resources :invoices, only: [:index]
-        resources :transactions, only: [:index]
+        resources :invoices, only: [:index], action: 'service'
+        resources :transactions, only: [:index], action: 'service'
       end
     end
   end

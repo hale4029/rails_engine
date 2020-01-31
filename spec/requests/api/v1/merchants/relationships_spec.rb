@@ -7,7 +7,12 @@ describe "mechant/:id/invoices" do
       customer = create(:customer)
       create(:invoice, merchant: merchant, customer: customer)
     end
-    
+    merchant_2 = create(:merchant)
+    5.times do
+      customer = create(:customer)
+      create(:invoice, merchant: merchant_2, customer: customer)
+    end
+
     get "/api/v1/merchants/#{merchant.id}/invoices"
 
     expect(response).to be_successful
@@ -29,6 +34,8 @@ describe "mechant/:id/items" do
   it "sends a list items for that mechant id" do
     merchant = create(:merchant)
     create_list(:item, 5, merchant: merchant)
+    merchant_2 = create(:merchant)
+    create_list(:item, 5, merchant: merchant_2)
 
     get "/api/v1/merchants/#{merchant.id}/items"
 

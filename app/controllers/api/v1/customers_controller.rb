@@ -8,6 +8,11 @@ class Api::V1::CustomersController < ApplicationController
     render json: CustomerSerializer.new(Customer.find_customer(pass_params))
   end
 
+  def service
+    resource = ResourceFinder.find_resource(params)
+    render json: CustomerSerializer.new(resource.customer)
+  end
+
   private
 
   def pass_params

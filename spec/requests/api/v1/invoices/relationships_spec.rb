@@ -7,6 +7,11 @@ describe "invoices/:id/items" do
       item = create(:item)
       create(:invoice_item, invoice: invoice, item: item, unit_price: item.unit_price)
     end
+    invoice_2 = create(:invoice)
+    7.times do
+      item = create(:item)
+      create(:invoice_item, invoice: invoice_2, item: item, unit_price: item.unit_price)
+    end
 
     get "/api/v1/invoices/#{invoice.id}/items"
 
@@ -30,6 +35,8 @@ describe "invoices/:id/transactions" do
   it "sends a list transaction for that invoice id" do
     invoice = create(:invoice)
     create_list(:transaction, 6, invoice: invoice)
+    invoice_2 = create(:invoice)
+    create_list(:transaction, 6, invoice: invoice_2)
 
     get "/api/v1/invoices/#{invoice.id}/transactions"
 
@@ -57,7 +64,7 @@ describe "invoices/:id/invoice_items" do
     get "/api/v1/invoices/#{invoice.id}/invoice_items"
 
     expect(response).to be_successful
-    
+
     invoice_items = JSON.parse(response.body)['data']
     expect(invoice_items.count).to eq(4)
 

@@ -29,7 +29,7 @@ Rails.application.routes.draw do
         resources :merchant, only: [:index]
       end
 
-      resources :transactions, only: [:index, :show] do
+      resources :transactions, param: :slug, only: [:index, :show] do
         resources :invoice, only: [:index]
       end
 

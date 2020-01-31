@@ -13,7 +13,7 @@ class Merchant < ApplicationRecord
     elsif params[:slug] == "random"
       offset = rand(self.count)
       self.offset(offset).limit(1).first
-      self.all.sample
+      #self.all.sample
     elsif params[:slug] == "revenue"
       self.revenue(params)
     else

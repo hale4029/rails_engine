@@ -68,7 +68,6 @@ describe "biz intelligence" do
 
     expect(response).to be_successful
     result = JSON.parse(response.body)['data']['attributes']['revenue']
-    require "pry"; binding.pry
     expect(result).to eq(revenue_1)
 
     get "/api/v1/merchants/#{@merchant_2.id}/revenue"

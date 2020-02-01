@@ -20,7 +20,7 @@ class Api::V1::MerchantsController < ApplicationController
   private
 
   def pass_params
-    params.permit(:id, :name, :created_at, :updated_at, :slug, :date, :revenue)
+    params.permit(:id, :name, :created_at, :updated_at, :slug, :date, :revenue, :most_revenue, :quantity)
   end
 
 end

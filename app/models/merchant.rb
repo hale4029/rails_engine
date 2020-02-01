@@ -13,9 +13,10 @@ class Merchant < ApplicationRecord
     elsif params[:slug] == "random"
       offset = rand(self.count)
       self.offset(offset).limit(1).first
-      #self.all.sample
     elsif params[:slug] == "revenue"
       self.revenue(params)
+    elsif params[:slug] == "most_revenue"
+      self.most_revenue(params)
     else
       self.find(params['slug'])
     end
@@ -50,6 +51,16 @@ class Merchant < ApplicationRecord
     result = Invoice.joins(:invoice_items).joins(:transactions).select('sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').where(invoices: {created_at: date.all_day}).where(transactions: {result: 'success'}).order('total_revenue')
     revenue = (result.first.total_revenue.to_f / 100)
     {data: {type: 'query_result', attributes: {total_revenue: revenue.to_s}}}
+  end
+
+  def revenue
+    result = Merchant.joins(invoices: [:invoice_items, :transactions]).select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').group(:id).where(merchants: {id: self.id}).where(transactions: {result: 'success'}).order('total_revenue')[0]
+    revenue = (result.total_revenue.to_f / 100)
+    {data: {type: 'query_result', attributes: {revenue: revenue.to_s}}}
+  end
+
+  def self.most_revenue(params)
+    self.joins(invoices: [:invoice_items, :transactions]).select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').group(:id).where(transactions: {result: 'success'}).order('total_revenue desc').limit(params[:quantity])
   end
 
 end

@@ -59,5 +59,24 @@ describe "biz intelligence" do
     expect(result).to eq(@merchant_1.id.to_s)
   end
 
+  it "total revenue for merchant" do
+    revenue_1 = (((@invoice_item_1.quantity * @invoice_item_1.unit_price) +
+                    (@invoice_item_3.quantity * @invoice_item_3.unit_price)).to_f / 100).to_s
+    revenue_2 = (((@invoice_item_2.quantity * @invoice_item_2.unit_price) +
+                    (@invoice_item_4.quantity * @invoice_item_4.unit_price)).to_f / 100).to_s
+    get "/api/v1/merchants/#{@merchant_1.id}/revenue"
+
+    expect(response).to be_successful
+    result = JSON.parse(response.body)['data']['attributes']['revenue']
+    require "pry"; binding.pry
+    expect(result).to eq(revenue_1)
+
+    get "/api/v1/merchants/#{@merchant_2.id}/revenue"
+
+    expect(response).to be_successful
+    result = JSON.parse(response.body)['data']['attributes']['revenue']
+    expect(result).to eq(revenue_2)
+  end
+
 
 end

@@ -54,7 +54,9 @@ class Merchant < ApplicationRecord
   end
 
   def revenue
-    self.joins(invoices: [:invoice_items, :transactions]).select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').group(:id).where(transactions: {result: 'success'}).order('total_revenue')
+    result = Merchant.joins(invoices: [:invoice_items, :transactions]).select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').group(:id).where(merchants: {id: self.id}).where(transactions: {result: 'success'}).order('total_revenue')[0]
+    revenue = (result.total_revenue.to_f / 100)
+    {data: {type: 'query_result', attributes: {revenue: revenue.to_s}}}
   end
 
   def self.most_revenue(params)

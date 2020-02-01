@@ -18,6 +18,10 @@ describe "biz intelligence" do
     @invoice_item_2 = create(:invoice_item, item: item_2, invoice: invoice_2, unit_price: item_2.unit_price, created_at: @created_at_1)
     @invoice_item_3 = create(:invoice_item, item: item_1, invoice: invoice_3, unit_price: item_1.unit_price, created_at: @created_at_2)
     @invoice_item_4 = create(:invoice_item, item: item_2, invoice: invoice_4, unit_price: item_2.unit_price, created_at: @created_at_2)
+    create(:transaction, invoice_id: invoice_1.id)
+    create(:transaction, invoice_id: invoice_2.id)
+    create(:transaction, invoice_id: invoice_3.id)
+    create(:transaction, invoice_id: invoice_4.id)
   end
 
   it "revenue across all merchants on a specific date" do

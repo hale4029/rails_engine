@@ -47,7 +47,7 @@ class Merchant < ApplicationRecord
 
   def self.revenue(params)
     date = Time.zone.parse(params['date'])
-    result = Invoice.joins(:invoice_items).select('sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').where(invoices: {created_at: date.all_day}).order('total_revenue')
+    result = Invoice.joins(:invoice_items).joins(:transactions).select('sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').where(invoices: {created_at: date.all_day}).where(transactions: {result: 'success'}).order('total_revenue')
     revenue = (result.first.total_revenue.to_f / 100)
     {data: {type: 'query_result', attributes: {total_revenue: revenue.to_s}}}
   end

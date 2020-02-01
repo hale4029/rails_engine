@@ -37,7 +37,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara'
   gem 'launchy'
-  gem 'simplecov'
+  gem 'simplecov', require: false, group: :test
   gem 'shoulda-matchers'
   gem 'faker'
 end

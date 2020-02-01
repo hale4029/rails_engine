@@ -63,4 +63,9 @@ class Item < ApplicationRecord
       "Query param error"
     end
   end
+
+  def self.most_revenue(quantity)
+    Item.joins(invoices: [:invoice_items, :transactions]).select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as sales').group(:id).where(transactions: {result: 'success'}).order('sales desc').limit(quantity)
+  end
+
 end

@@ -6,11 +6,8 @@ Rails.application.routes.draw do
         resources :items, only: [:index], action: 'service'
         resources :invoices, only: [:index], action: 'service'
         get '/revenue', to: 'merchant_solo#revenue'
+        get '/favorite_customer', to: 'merchant_solo#customer'
       end
-
-      # get 'merchants/random', to: 'merchants#show'
-      # get 'merchants/revenue', to: 'merchants#show'
-      # get 'merchants/most_revenue', to: 'merchants#show'
 
       resources :invoices, param: :slug, only: [:index, :show] do
         resources :transactions, only: [:index], action: 'service'

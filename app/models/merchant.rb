@@ -53,14 +53,18 @@ class Merchant < ApplicationRecord
     {data: {type: 'query_result', attributes: {total_revenue: revenue.to_s}}}
   end
 
+  def self.most_revenue(params)
+    self.joins(invoices: [:invoice_items, :transactions]).select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').group(:id).where(transactions: {result: 'success'}).order('total_revenue desc').limit(params[:quantity])
+  end
+
   def revenue
     result = Merchant.joins(invoices: [:invoice_items, :transactions]).select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').group(:id).where(merchants: {id: self.id}).where(transactions: {result: 'success'}).order('total_revenue')[0]
     revenue = (result.total_revenue.to_f / 100)
     {data: {type: 'query_result', attributes: {revenue: revenue.to_s}}}
   end
 
-  def self.most_revenue(params)
-    self.joins(invoices: [:invoice_items, :transactions]).select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue').group(:id).where(transactions: {result: 'success'}).order('total_revenue desc').limit(params[:quantity])
+  def favorite_customer
+    Customer.joins(invoices: :transactions).select("customers.*, count(transactions.id) as total_transactions").where("transactions.result = 'success' AND invoices.merchant_id = #{self.id}").group(:id).order('total_transactions DESC').limit(1)[0]
   end
 
 end

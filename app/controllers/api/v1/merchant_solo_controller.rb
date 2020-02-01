@@ -10,6 +10,11 @@ class Api::V1::MerchantSoloController < ApplicationController
     render json: merchant.revenue
   end
 
+  def customer
+    merchant = Merchant.find(params[:merchant_slug])
+    render json: MerchantSoloSerializer.new(merchant.favorite_customer)
+  end
+
   private
 
   def pass_params

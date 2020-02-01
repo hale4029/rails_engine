@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "biz intelligence" do
+describe "biz logic revenue" do
   before :each do
     @merchant_1 = create(:merchant)
     @merchant_2 = create(:merchant)

@@ -5,7 +5,11 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def show
-    render json: ItemSerializer.new(Item.find_item(pass_params))
+    if params.values.include?('most_revenue')
+      render json: ItemSerializer.new(Item.most_revenue(params[:quantity]))
+    else
+      render json: ItemSerializer.new(Item.find_item(pass_params))
+    end
   end
 
   def service

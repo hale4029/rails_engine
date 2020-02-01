@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resources :items, param: :slug, only: [:index, :show] do
         resources :invoice_items, only: [:index], action: 'service'
         resources :merchant, only: [:index], controller: 'merchants', action: 'service'
+        get '/best_day', to: 'item_solo#best_day'
       end
 
       resources :transactions, param: :slug, only: [:index, :show] do

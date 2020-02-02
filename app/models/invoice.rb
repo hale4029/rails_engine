@@ -18,7 +18,6 @@ class Invoice < ApplicationRecord
     elsif params[:slug] == "random"
       offset = rand(self.count)
       self.offset(offset).limit(1).first
-      #self.all.sample
     else
       self.find(params['slug'])
     end
@@ -31,8 +30,6 @@ class Invoice < ApplicationRecord
       self.where(param => params[param])[0]
     elsif (params.keys & ['created_at', 'updated_at']).any?
       self.where(param => params[param]).order("#{param} desc").first
-    else
-      "Query param error"
     end
   end
 
@@ -43,8 +40,6 @@ class Invoice < ApplicationRecord
       self.where(param => params[param]).order('id asc')
     elsif (params.keys & ['created_at', 'updated_at']).any?
       self.where(param => params[param]).order("#{param} desc")
-    else
-      "Query param error"
     end
   end
 end

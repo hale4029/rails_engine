@@ -47,4 +47,9 @@ class Customer < ApplicationRecord
   def customer_transactions
     Transaction.joins(customers: [:invoices]).where("invoices.customer_id == #{self.id}")
   end
+
+  def favorite_merchant
+    Merchant.joins(invoices: [:transactions]).select('merchants.*, count(transactions.*) as total_transactions').group('merchants.id').where(invoices: {customer_id: self.id}).where(transactions: {result: 'success'}).order('total_transactions desc').limit(1)[0]
+  end
+
 end

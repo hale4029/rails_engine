@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       resources :customers, param: :slug, only: [:index, :show] do
         resources :invoices, only: [:index], action: 'service'
         resources :transactions, only: [:index], action: 'service'
+        get '/favorite_merchant', to: 'customer_solo#favorite_merchant'
       end
     end
   end

@@ -68,4 +68,10 @@ class Item < ApplicationRecord
     Item.joins(invoices: [:invoice_items, :transactions]).select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as sales').group(:id).where(transactions: {result: 'success'}).order('sales desc').limit(quantity)
   end
 
+  def best_day
+    result = self.invoices.joins(:transactions).select('invoices.created_at as date, sum(invoice_items.quantity * invoice_items.unit_price) as sales').group('date').where(transactions: {result: 'success'}).order('sales desc').order('date desc').limit(10)[0]
+    date = result.date.strftime "%Y-%m-%d"
+    {data: {type: 'query_result', attributes: {best_day: date}}}
+  end
+
 end

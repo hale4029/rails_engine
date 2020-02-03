@@ -67,9 +67,9 @@ describe "item API" do
    end
 
   it "item find request: description" do
-    item = create(:item)
+    item = create(:item, description: "cool")
 
-    get "/api/v1/items/find?description=#{item.description}"
+    get "/api/v1/items/find?description=cool"
 
     expect(response).to be_successful
 

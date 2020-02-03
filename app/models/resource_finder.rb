@@ -12,8 +12,6 @@ class ResourceFinder
       Item.find(params['item_slug'])
     elsif params.keys.include?('customer_slug')
       Customer.find(params['customer_slug'])
-    else
-      "Query param error"
     end
   end
 end

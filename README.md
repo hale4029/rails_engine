@@ -2,7 +2,7 @@
 
  - mkdir (new directory)
  - git clone git@github.com:turingschool/rales_engine_spec_harness.git 
- - git clone the repo
+ - git clone git@github.com:hale4029/rails_engine.git
  - Ruby version in gemfile and .ruby-version: 2.5.3
  - bundle install and update
  - db:{drop,create,migrate}

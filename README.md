@@ -5,9 +5,10 @@ This repo uses ROR and ActiveRecord to build a JSON API which exposes a SalesEng
 Setup Instructions:
 
  - `mkdir` (new directory)
- - `git clone git@github.com:turingschool/rales_engine_spec_harness.git`
  - `git clone git@github.com:hale4029/rails_engine.git`
+ - `git clone git@github.com:turingschool/rales_engine_spec_harness.git`
    - This spec-harness tests relationships, endpoints, and biz logic queries
+   - `rails s` in rails_engine directory, then `rake` in rails_engine_spec_harness directory
  - Ruby version: 2.5.3
  - `bundle install and update`
  - `db:{drop,create,migrate}`
@@ -27,7 +28,6 @@ These endpoints can be accessed locally from your computer. Responses are render
 Start a local server:
 
 `rails s`
-
 
 Then open a browser and enter "localhost:3000".
 

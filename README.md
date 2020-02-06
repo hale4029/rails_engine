@@ -97,23 +97,24 @@ Then open a browser and enter "localhost:3000".
 
   ### Business Intelligence Endpoints
 
-   All Merchants
+   All Merchants  
    `GET` /api/v1/merchants/most_revenue?quantity=x 
         - returns the top x merchants ranked by total revenue
+        
    `GET` /api/v1/merchants/revenue?date=x 
         - returns the total revenue for date x across all merchants
 
-   Single Merchant
+   Single Merchant  
    `GET` /api/v1/merchants/:id/favorite_customer 
         - returns the customer who has conducted the most total number of successful    transactions.
 
-   Items
-   `GET` /api/v1/items/most_revenue?quantity=x returns the top x items ranked by total revenue generated
+   Items  
+   `GET` /api/v1/items/most_revenue?quantity=x returns the top x items ranked by total revenue generated  
 
    `GET` /api/v1/items/:id/best_day 
          - returns the date with the most sales for the given item using the invoice date. If there are multiple days with equal number of sales, return the most recent day.
 
-   Customers
+   Customers  
    `GET` /api/v1/customers/:id/favorite_merchant  
         - returns a merchant where the customer has conducted the most successful transactions
 

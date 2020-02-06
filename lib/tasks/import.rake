@@ -3,7 +3,7 @@ require 'CSV'
 namespace :import do
 
   task customers: :environment do
-    filename = '/Users/hlevin/turing/mod_3/rails_engine_project/rails_engine_api/data/customers.csv'
+    filename = './data/customers.csv'
     counter = 0
 
     CSV.foreach(filename, headers: true) do |row|
@@ -15,7 +15,7 @@ namespace :import do
   end
 
   task merchants: :environment do
-    filename = '/Users/hlevin/turing/mod_3/rails_engine_project/rails_engine_api/data/merchants.csv'
+    filename = './data/merchants.csv'
     counter = 0
 
     CSV.foreach(filename, headers: true) do |row|
@@ -27,7 +27,7 @@ namespace :import do
   end
 
   task items: :environment do
-    filename = '/Users/hlevin/turing/mod_3/rails_engine_project/rails_engine_api/data/items.csv'
+    filename = './data/items.csv'
     counter = 0
 
     CSV.foreach(filename, headers: true) do |row|
@@ -39,7 +39,7 @@ namespace :import do
   end
 
   task invoices: :environment do
-    filename = '/Users/hlevin/turing/mod_3/rails_engine_project/rails_engine_api/data/invoices.csv'
+    filename = './data/invoices.csv'
     counter = 0
 
     CSV.foreach(filename, headers: true) do |row|
@@ -51,7 +51,7 @@ namespace :import do
   end
 
   task invoice_items: :environment do
-    filename = '/Users/hlevin/turing/mod_3/rails_engine_project/rails_engine_api/data/invoice_items.csv'
+    filename = './data/invoice_items.csv'
     counter = 0
 
     CSV.foreach(filename, headers: true) do |row|
@@ -63,7 +63,7 @@ namespace :import do
   end
 
   task transactions: :environment do
-    filename = '/Users/hlevin/turing/mod_3/rails_engine_project/rails_engine_api/data/transactions.csv'
+    filename = './data/transactions.csv'
     counter = 0
 
     CSV.foreach(filename, headers: true) do |row|

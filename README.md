@@ -1,6 +1,8 @@
-# README
+### *Looking for [Weather Engine?](https://rubyonrails.org/)*
 
-This repo uses ROR and ActiveRecord to build a JSON API which exposes a SalesEngine data schema. The complete set of directions can be found at https://backend.turing.io/module3/projects/rails_engine_modified.
+# Rails Engine
+
+This repo uses ROR and ActiveRecord to build a JSON API which exposes a SalesEngine database. The complete set of directions can be found at https://backend.turing.io/module3/projects/rails_engine_modified.
 
 Setup Instructions:
 
